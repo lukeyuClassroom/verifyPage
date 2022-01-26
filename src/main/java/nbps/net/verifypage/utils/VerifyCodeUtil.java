@@ -39,7 +39,7 @@ public class VerifyCodeUtil {
         for (int i = 0; i < codeArray.length; i++) {
             //设置随机字体大小
             int fontSize = random.nextInt(height / 2) + (height / 2);
-            Font f = new Font("Calibri", random.nextInt(3), fontSize);
+            Font f = new Font("Arial", random.nextInt(3), fontSize+6);
             gp.setFont(f);
             //计算宽高并绘制
             int avgX = width / codeArray.length;

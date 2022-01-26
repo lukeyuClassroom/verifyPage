@@ -20,45 +20,9 @@ import java.io.OutputStream;
  * @author wumingwang
  */
 @SpringBootApplication
-@Controller
-public class VerifyPageApplication extends SpringBootServletInitializer {
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(VerifyPageApplication.class);
-    }
-
+public class VerifyPageApplication  {
     public static void main(String[] args) {
         SpringApplication.run(VerifyPageApplication.class, args);
     }
 
-    @GetMapping("/")
-    public ModelAndView home() {
-        return new ModelAndView("verifypage");
-    }
-
-    @GetMapping("/VerifyPage")
-    public String verifyPage() {
-        return "verifypage";
-    }
-
-    @GetMapping("/verifycode")
-    public void getAuthCodeImg(HttpSession session, HttpServletResponse response) {
-        String code = VerifyCodeUtil.buildCode(4, false, true, true);
-        BufferedImage bufferedImage = VerifyCodeUtil.buildImg(code, 112, 38, 5, 50);
-        //存储验证码，用于用户输入校验
-        session.setAttribute("code", code);
-        //禁止图片缓存
-        response.setHeader("Pragma", "no-cache");
-        response.setHeader("Cache-Control", "no-cache");
-        response.setDateHeader("Expires", 0);
-        //设置响应格式
-        response.setContentType("image/jpeg");
-        try {
-            OutputStream os = response.getOutputStream();
-            ImageIO.write(bufferedImage, "jpeg", os);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
